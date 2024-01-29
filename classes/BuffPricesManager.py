@@ -22,10 +22,10 @@ class BuffPricesManager:
             "Cookie": str(header)
         }
 
-    def check_config_json(self):
+    def check_config_env(self):
         cookie = self.header.get('Cookie')
         if cookie == '':
-            print("¡config.json está vacío!\nNecesitas configurar el archivo config.json")
+            print("El .env está vacío!\nNecesitas configurar el archivo para que funcione el programa.")
             sys.exit()
         values = cookie.split(";")
         dictionary = {}
@@ -35,7 +35,7 @@ class BuffPricesManager:
         for val in ['Device-Id', 'session', 'csrf_token']:
             if dictionary.get(val) is None:
                 print(f'{self.RED_COLOR_FOR_ERROR}config.json incorrecto.\nPor favor, revisa la guía de configuración: '
-                    'https://github.com/perrebser/buff163Prices#setup-buff163-cookies')
+                    'https://github.com/pato-1441/tocsvBuff163?tab=readme-ov-file#configuraci%C3%B3n-de-cookies-de-buff163')
                 sys.exit()
 
     def get_user_input(self):
@@ -211,7 +211,7 @@ class BuffPricesManager:
         if (isinstance(min_float, float) and isinstance(max_float, float)) or check_last_sales:
             kwargs['min_float'] = min_float
             kwargs['max_float'] = max_float
-            self.check_config_json()
+            self.check_config_env()
 
         rate = 0.14  # Tasa de cambio fija USD CNY
         item_id_list = self.BuffIdUpdater.search_id(item_list)
